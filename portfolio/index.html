@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>우현승 포트폴리오</title>
+	<link rel="stylesheet" href="style.css" />
+</head>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const buttons = document.querySelectorAll('.select-buttons button');
+		const categories = document.querySelectorAll('.portfolio-items .category');
+
+		function showCategory(category) {
+			categories.forEach(cat => {
+				cat.style.display = 'none';
+			});
+
+			buttons.forEach(btn => btn.classList.remove('active'));
+			document.querySelector(`.select-buttons button[data-filter="${category}"]`).classList.add('active');
+
+			const target = document.querySelector(`.category.${category}`);
+			if (target) {
+				target.style.display = 'flex';
+
+				target.classList.remove('fade-in'); // 재적용 위해 제거 후 추가
+				void target.offsetWidth; // 강제로 리렌더
+				target.classList.add('fade-in');
+			}
+		}
+
+		// 초기값: 썸네일
+		showCategory('thumbnail');
+
+		buttons.forEach(button => {
+			button.addEventListener('click', () => {
+				const category = button.getAttribute('data-filter');
+				showCategory(category);
+			});
+		});
+	});
+</script>
+
+<body>
+	<!--
+	<header>
+		<div id="header">
+			<a href="/"><div id="header-title"></div></a>
+			<div id="btnsection">
+				<a href="/contact"><div id="1" class="header-btn">외주 문의</div></a>
+			</div>
+		</div>
+	</header>
+	-->
+
+	<section class="video-section">
+		<iframe width="100%" height="100%" src="https://www.youtube.com/embed/ifSKsqVFQ_M?si=XJknLORwpdGk5a8Z&amp;controls=0&autoplay=1&mute=1&loop=1&playlist=ifSKsqVFQ_M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+		<div class="video-overlay">
+			<div class="main-title fade-in">우현승 포트폴리오</div>
+			<div class="main-expl fade-in" style="animation-delay: 0.5s;">함께 채널을 키워나갈 최고의 서포터 우현승입니다.</div>
+			<!--<a href="/contact" style="margin: 20px 0px -20px 0px;"><div class="main-btn fade-in" style="animation-delay: 1.5s;">영상 편집 문의하기</div></a>-->
+		</div>
+	</section>
+	
+	<section id="0" style="background-color: #222; padding: 8px 0px 10px 0px; text-align: center; color: #fff;">🖱️스크롤을 내려 저에 대해 더 자세히 알아보세요</section>
+	
+	<section id="1">
+		<div class="section">
+			<div class="title">이런 걸 합니다</div>
+			<div class="board">
+				<div id="1" class="card">
+					<div class="card-image" style="background-image: url('media/card_1.png');"></div>
+					<div class="card-title">영상 편집</div>
+					<div class="card-expl">생방송 클립부터 직접 녹화하신 영상까지<br>컷편집·자막·효과 전부 가능해요</div>
+				</div>
+				<div id="2" class="card">
+					<div class="card-image" style="background-image: url('media/card_2.png');"></div>
+					<div class="card-title">썸네일 제작</div>
+					<div class="card-expl">채널과 영상 주제에 맞는,<br>깔끔하고 트렌디한 썸네일을 만들어요</div>
+				</div>
+				<div id="3" class="card">
+					<div class="card-image" style="background-image: url('media/card_3.png');"></div>
+					<div class="card-title">커뮤니티 디자인</div>
+					<div class="card-expl">디스코드 서버, 네이버 카페 등<br>여러 커뮤니티를 설정·관리 가능해요</div>
+				</div>
+			</div>
+			<line></line>
+			<div class="expl">이외에도 간단하게 <b>방송 설정</b>, 짚톡이나 캐릭터 등 <b>그림</b>, 콘텐츠용 마인크래프트·팰월드 등의 <b>서버 구축 및 관리 보조</b>도 가능합니다!</div>
+		</div>
+	</section>
+
+	<section id="1" style="background-color: #fff;">
+		<div class="section">
+			<div class="title">준비되어 있습니다</div>
+			<div class="board" style="height: 70px;">
+				<div id="1" class="char">
+					<div class="char-title">5</div>
+					<div class="char-expl">기여한 채널</div>
+				</div>
+				<lengthline></lengthline>
+				<div id="2" class="char">
+					<div class="char-title">200+</div>
+					<div class="char-expl">제작한 동영상</div>
+				</div>
+				<lengthline></lengthline>
+				<div id="3" class="char">
+					<div class="char-title">360,000+</div>
+					<div class="char-expl">이끌어낸 조회수</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="3" style="z-index: 6;">
+		<div class="section">
+			<div class="title">대표 작업물 모음</div>
+			<div class="select-buttons">
+				<button data-filter="thumbnail" class="active">썸네일</button>
+				<button data-filter="video">동영상</button>
+				<button data-filter="community">커뮤니티 디자인</button>
+			</div>
+			<div class="portfolio-items">
+				<div class="category thumbnail">
+					<div class="item">
+						<img class="item_thumbnail" src="media/portfolio/p_1.png">
+						<div class="item_info">
+							<div class="type">개인 유튜브 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<img class="item_thumbnail" src="media/portfolio/p_2.png">
+						<div class="item_info">
+							<div class="type">개인 유튜브 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<img class="item_thumbnail" src="media/portfolio/p_3.png">
+						<div class="item_info">
+							<div class="type">개인 유튜브 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<img class="item_thumbnail" src="media/portfolio/p_4.png">
+						<div class="item_info">
+							<div class="type">개인 유튜브 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<img class="item_thumbnail" src="media/portfolio/p_5.png">
+						<div class="item_info">
+							<div class="type">개인 유튜브 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<img class="item_thumbnail" src="media/portfolio/p_6.png">
+						<div class="item_info">
+							<div class="type">개인 유튜브 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<img class="item_thumbnail" src="media/portfolio/p_7.png">
+						<div class="item_info">
+							<div class="type">개인 유튜브 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<img class="item_thumbnail" src="media/portfolio/p_8.png">
+						<div class="item_info">
+							<div class="type">개인 유튜브 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<img class="item_thumbnail" src="media/portfolio/p_9.png">
+						<div class="item_info">
+							<div class="type">개인 유튜브 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<img class="item_thumbnail" src="media/portfolio/p_10.png">
+						<div class="item_info">
+							<div class="type">개인 유튜브 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<img class="item_thumbnail" src="media/portfolio/p_11.png">
+						<div class="item_info">
+							<div class="type">개인 유튜브 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<img class="item_thumbnail" src="media/portfolio/p_12.png">
+						<div class="item_info">
+							<div class="type">유튜브 '겜준영' 외주 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<img class="item_thumbnail" src="media/portfolio/p_13.png">
+						<div class="item_info">
+							<div class="type">유튜브 '에스코' 외주 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<img class="item_thumbnail" src="media/portfolio/p_14.png">
+						<div class="item_info">
+							<div class="type">유튜브 '에스코' 외주 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<img class="item_thumbnail" src="media/portfolio/p_15.png">
+						<div class="item_info">
+							<div class="type">유튜브 '에스코' 외주 작업</div>
+						</div>
+					</div>
+					<!--<div class="item">
+						<img class="item_thumbnail" src="media/portfolio/p_16.png">
+						<div class="item_info">
+							<div class="type">유튜브 '에스코' 외주 작업</div>
+						</div>
+					</div>-->
+					<div class="item">
+						<img class="item_thumbnail" src="media/portfolio/p_17.png">
+						<div class="item_info">
+							<div class="type">개인 유튜브 작업</div>
+						</div>
+					</div>
+				</div>
+				<div class="category video">
+					<div class="item">
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/9QfpO93aA3M?si=GgyAbQFG8tVtXzQn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+						<div class="item_info">
+							<div class="type">개인 유튜브 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/qiNonZfNa44?si=FnIsHkkqi6NWSBSO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+						<div class="item_info">
+							<div class="type">개인 유튜브 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/TNjhetnjlao?si=x3vUYSQs-wdLxEHq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+						<div class="item_info">
+							<div class="type">개인 유튜브 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/k-LWzPPvv6U?si=ooxE7NBLHGrwjvXO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+						<div class="item_info">
+							<div class="type">개인 유튜브 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/dXLuQuVJ2y8?si=bpYGfKcRZmqusIBZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+						<div class="item_info">
+							<div class="type">개인 유튜브 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/ClDm1hkaBcc?si=t7ZVOMl4VU_sB4LI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+						<div class="item_info">
+							<div class="type">개인 유튜브 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/ucM0wj9C0sE?si=0hottdmCa78m7lQH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+						<div class="item_info">
+							<div class="type">유튜브 '에스코' 외주 작업 / 기여도 80%</div>
+						</div>
+					</div>
+					<div class="item">
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/kOuE4AFO_8I?si=l6bHlEJF0IGO0MME" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+						<div class="item_info">
+							<div class="type">유튜브 '에스코' 외주 작업 / 기여도 80%</div>
+						</div>
+					</div>
+					<div class="item">
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/rrA3EEpz6TI?si=EHEyZkGdBiSbF_gr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+						<div class="item_info">
+							<div class="type">유튜브 '에스코' 외주 작업 / 기여도 80%</div>
+						</div>
+					</div>
+					<div class="item">
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/VspFlhDr5sE?si=Ns_dEIsWDEJYfPEz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+						<div class="item_info">
+							<div class="type">유튜브 '에스코' 외주 작업 / 기여도 80%</div>
+						</div>
+					</div>
+				</div>
+				<div class="category community">
+					<div class="item">
+						<img class="item_community" src="media/portfolio/p_c1.png">
+						<div class="item_info">
+							<div class="type">네이버 카페 '결의시간' 배너·대문 제작</div>
+						</div>
+					</div>
+					<div class="item">
+						<img class="item_community" src="media/portfolio/p_c2.png">
+						<div class="item_info">
+							<div class="type">개인 SOOP 채널 타이틀 이미지 작업</div>
+						</div>
+					</div>
+					<div class="item">
+						<img class="item_community" src="media/portfolio/p_c3.png">
+						<div class="item_info">
+							<div class="type">지금 당신이 보고 있는 이 사이트를 제작</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

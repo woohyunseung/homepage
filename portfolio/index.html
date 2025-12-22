@@ -9,6 +9,7 @@
 
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
+		// 카테고리 필터링
 		const buttons = document.querySelectorAll('.select-buttons button');
 		const categories = document.querySelectorAll('.portfolio-items .category');
 
@@ -38,6 +39,60 @@
 				const category = button.getAttribute('data-filter');
 				showCategory(category);
 			});
+		});
+
+		// 숫자 카운트업 애니메이션
+
+		function easeOutExpo(x) { // 숫자가 마지막에 부드럽게 멈추도록 함
+			return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
+		}
+
+		const counters = document.querySelectorAll('.char-title');
+		
+		const observerOptions = { 
+			threshold: 0.5, // 요소가 50% 정도 보일 때 실행
+			rootMargin: "0px 0px -50px 0px" 
+		};
+
+		const observer = new IntersectionObserver((entries, observer) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					const counter = entry.target;
+					const target = parseInt(counter.getAttribute('data-target'));
+					const suffix = counter.getAttribute('data-suffix') || '';
+					const duration = parseInt(counter.getAttribute('data-duration')) || 2000; // HTML 태그에 설정된 data-duration 값이 없을 경우의 기본값
+					const startTime = performance.now();
+
+					if (counter.classList.contains('animated')) return; // 애니메이션이 이미 실행되었는지 확인 (중복 실행 방지)
+					counter.classList.add('animated');
+
+					function updateCount(currentTime) {
+						const elapsedTime = currentTime - startTime;
+						const progress = Math.min(elapsedTime / duration, 1);
+						const easeProgress = easeOutExpo(progress);
+						
+						const currentCount = Math.floor(easeProgress * target);
+						
+						counter.innerText = currentCount.toLocaleString() + suffix; // 3자리마다 콤마
+
+						if (progress < 1) {
+							requestAnimationFrame(updateCount);
+						} else {
+							counter.innerText = target.toLocaleString() + suffix; // 최종값 보정
+						}
+					}
+
+					requestAnimationFrame(updateCount);
+					observer.unobserve(counter);
+				}
+			});
+		}, observerOptions);
+
+		counters.forEach(counter => { // 초기값 0으로 설정
+			if (counter.getAttribute('data-target')) {
+				counter.innerText = '0' + (counter.getAttribute('data-suffix') || '');
+				observer.observe(counter);
+			}
 		});
 	});
 </script>
@@ -95,17 +150,17 @@
 			<div class="title">준비되어 있습니다</div>
 			<div class="board" style="height: 70px;">
 				<div id="1" class="char">
-					<div class="char-title">6</div>
+					<div class="char-title" data-target="6" data-duration="1000">6</div>
 					<div class="char-expl">기여한 채널</div>
 				</div>
 				<lengthline></lengthline>
 				<div id="2" class="char">
-					<div class="char-title">200+</div>
+					<div class="char-title" data-target="200" data-suffix="+" data-duration="3000">200+</div>
 					<div class="char-expl">제작한 동영상</div>
 				</div>
 				<lengthline></lengthline>
 				<div id="3" class="char">
-					<div class="char-title">400,000+</div>
+					<div class="char-title" data-target="400000" data-suffix="+" data-duration="5000">400,000+</div>
 					<div class="char-expl">이끌어낸 조회수</div>
 				</div>
 			</div>

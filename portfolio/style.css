@@ -1,4 +1,3 @@
-/* [기본 스크롤바 스타일] */
 ::-webkit-scrollbar {
 	width: 8px;
 	height: 8px;
@@ -21,20 +20,18 @@ html {
     scrollbar-gutter: stable;
 }
 
-/* [기본 바디 스타일] */
 body {
     font-family: 'Pretendard', sans-serif;
     margin: 0;
     background-color: #f9fafb;
     color: #222;
-    overflow-x: hidden; /* 가로 스크롤 방지 */
+    overflow-x: hidden;
 }
 
 a {
     text-decoration: none;
 }
 
-/* [라인 스타일] */
 line {
     display: block;
     width: 1200px;
@@ -50,7 +47,6 @@ lengthline {
     background-color: #00000050;
 }
 
-/* [헤더 스타일] */
 header {
     color: #fff;
     width: 100%;
@@ -88,7 +84,6 @@ header div {
     font-weight: bold;
 }
 
-/* [비디오 섹션] */
 .video-section {
     position: relative;
     height: 800px;
@@ -128,7 +123,6 @@ header div {
     margin-bottom: 16px;
 }
 
-/* [공통 섹션 스타일] */
 section {
     width: 100%;
 }
@@ -168,7 +162,65 @@ section {
     margin-bottom: 12px;
 }
 
-/* [카드 스타일] */
+.introduce-info{
+    margin: 40px 0px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.introduce-profile{
+    background-image: url('media/profile.png');
+    background-size: 100%;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+}
+
+.introduce-expl{
+    width: 500px;
+    font-size: 18px;
+}
+
+.introduce-expl .name{
+    color: #ff8d00;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.introduce-expl .age{
+    margin-left: 5px;
+    color: #666;
+    font-size: 16px;
+}
+
+.introduce-tools{
+    float: left;
+    background-color: #fff;
+    padding: 30px;
+    border: #ddd 1px solid;
+    border-left-width: 5px;
+    box-shadow: 0px 0px 10px #f3f3f3;
+}
+.introduce-tools .tools-board{
+    margin-top: 5px;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.introduce-tools .tools-title{
+    font-weight: bold;
+}
+
+.introduce-tools .tool{
+    float: left;
+    padding: 5px 10px;
+    background-color: #eee;
+    border-radius: 5px;
+}
+
 .section .card {
     width: 310px;
     height: 270px;
@@ -224,7 +276,6 @@ section .card:hover {
     color: #55a4ff;
 }
 
-/* [리스트 및 기타 요소] */
 .list{
     display: flex;
     flex-wrap: wrap;
@@ -267,7 +318,6 @@ section .card:hover {
     letter-spacing: -0.7px;
 }
 
-/* [팀 컨테이너] */
 .team-container {
     margin-top: 40px;
     display: flex;
@@ -337,7 +387,6 @@ section .card:hover {
     gap: 10px;
 }
 
-/* [보드 및 캐릭터(통계)] */
 .board{
     margin: 40px 0px;
     display: flex;
@@ -359,7 +408,6 @@ section .card:hover {
     font-size: 18px;
 }
 
-/* [버튼 스타일] */
 .section-btn{
     width: 100%;
     background-color: #0077ff;
@@ -405,7 +453,6 @@ section .card:hover {
     background-color: #55a4ff;
 }
 
-/* [필터 버튼 및 카테고리] */
 .select-buttons{
     margin-top: 30px;
     display: flex;
@@ -495,7 +542,6 @@ section .card:hover {
     font-weight: bold;
 }
 
-/* [푸터] */
 footer {
     text-align: center;
     padding: 2rem;
@@ -532,7 +578,7 @@ footer {
     }
 }
 
-/* 스크롤 등장 애니메이션*/
+/*스크롤 등장 애니메이션*/
 
 .animate-on-scroll {
     opacity: 0;

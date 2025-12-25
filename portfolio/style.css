@@ -481,6 +481,9 @@ section .card:hover {
     color: #fff;
 }
 
+.portfolio-items{
+    display: flex;
+}
 .category{
     display: none;
     width: 1400px;

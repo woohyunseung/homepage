@@ -51,7 +51,7 @@ button {
     font-family: inherit;
 }
 
-/* --- 3. 헤더 영역 --- */
+/* 헤더 */
 .site-header {
     height: var(--header-height);
     background-color: #111;
@@ -62,6 +62,7 @@ button {
     padding: 0 24px;
     flex-shrink: 0; /* 높이 고정 */
     z-index: 20;
+    color: #fff;
 }
 
 .logo-area {
@@ -77,6 +78,7 @@ button {
     letter-spacing: 1.2px;
     font-family: "BBH Bartle";
     font-style: normal;
+    user-select: none;
 }
 
 .highlight-red { color: var(--color-red); }

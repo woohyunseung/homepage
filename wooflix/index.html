@@ -16,7 +16,6 @@
 </head>
 <body>
 
-    <!-- 헤더 -->
     <header class="site-header">
         <div class="logo-area">
             <button id="mobile-menu-btn" class="mobile-menu-btn">
@@ -31,25 +30,23 @@
         </div>-->
     </header>
 
-    <!-- 메인 레이아웃 -->
     <div class="app-container">
         
-        <!-- 사이드바 -->
         <aside id="sidebar" class="sidebar">
             <div class="sidebar-header">
                 <span class="playlist-title">Playlist</span>
-                <!-- 데스크탑 접기 버튼 -->
+                <!-- 데스크탑 접기 -->
                 <button id="sidebar-collapse-btn" class="sidebar-toggle-btn" title="접기">
                     <i class="fa-solid fa-angle-left"></i>
                 </button>
-                <!-- 모바일 닫기 버튼 -->
+                <!-- 모바일 닫기 -->
                 <button id="mobile-close-btn" class="mobile-close-btn" title="닫기">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
             <div id="video-list" class="video-list">
-                <!-- 자바스크립트로 리스트 생성 -->
+                <!-- js로 리스트 생성 -->
             </div>
             
             <div class="sidebar-footer">
@@ -57,7 +54,6 @@
             </div>
         </aside>
 
-        <!-- 메인 콘텐츠 -->
         <main class="main-content">
             <!-- 펼치기 버튼 (사이드바가 접히면 보임) -->
             <button id="sidebar-expand-btn" class="expand-btn" title="목록 보기">
@@ -86,7 +82,7 @@
     </div>
 
     <script>
-        // --- 1. 데이터 설정 (여기에 영상 추가) ---
+        // 데이터 설정
         const videos = [
             {
                 id: 'ttfK7rWZFWI', 
@@ -150,7 +146,7 @@
             },
         ];
 
-        // --- 2. 요소 선택 ---
+        // 요소 선택
         const videoListEl = document.getElementById('video-list');
         const mainPlayer = document.getElementById('main-player');
         const currentTitle = document.getElementById('current-title');
@@ -167,12 +163,12 @@
 
         let currentIndex = 0;
 
-        // --- 3. 썸네일 생성 함수 ---
+        // 썸네일 생성
         function getThumbnail(id) {
             return `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
         }
 
-        // --- 4. 리스트 렌더링 ---
+        // 리스트 렌더링
         function renderList() {
             videoListEl.innerHTML = '';
             videos.forEach((video, index) => {
@@ -208,7 +204,7 @@
             });
         }
 
-        // --- 5. 비디오 로드 ---
+        // 비디오 로드
         function loadVideo(index) {
             currentIndex = index;
             const video = videos[index];
@@ -229,7 +225,7 @@
             }
         }
 
-        // --- 6. 사이드바 제어 로직 ---
+        // 사이드바 제어
 
         // 데스크탑 접기/펼치기
         function toggleSidebarDesktop() {
@@ -255,7 +251,7 @@
             mobileOverlay.classList.remove('active');
         }
 
-        // --- 7. 이벤트 리스너 등록 ---
+        // 이벤트 리스너 등록
         collapseBtn.addEventListener('click', toggleSidebarDesktop); // 접기 버튼
         expandBtn.addEventListener('click', toggleSidebarDesktop);   // 펼치기 버튼 (생성된 작은 버튼)
 
@@ -263,7 +259,7 @@
         mobileCloseBtn.addEventListener('click', closeMobileSidebar);
         mobileOverlay.addEventListener('click', closeMobileSidebar);
 
-        // --- 8. 초기 실행 ---
+        // 초기 실행
         renderList();
         if (videos.length > 0) {
             // 첫 영상은 자동재생 끄고 로드

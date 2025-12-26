@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta property="og:title" content="우현승 | 우플릭스">
+	<meta property="og:description" content="우현승 매드무비 모음집">
+	<meta property="og:site_name" content="우현승 | 우플릭스">
+	<link rel="stylesheet" href="style.css" />
+	<title>우현승 | 우플릭스</title>
+	<link rel="shortcut icon" href="media/favicon.png" type="image/x-icon">
+	<link rel="icon" href="media/favicon.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 헤더 -->
+    <header class="site-header">
+        <div class="logo-area">
+            <button id="mobile-menu-btn" class="mobile-menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="logo-text">
+                WOO<span class="highlight-red">FLIX</span>
+            </div>
+        </div>
+        <!--<div class="archive-badge">
+            <i class="fa-brands fa-youtube highlight-red"></i> Archive
+        </div>-->
+    </header>
+
+    <!-- 메인 레이아웃 -->
+    <div class="app-container">
+        
+        <!-- 사이드바 -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <span class="playlist-title">Playlist</span>
+                <!-- 데스크탑 접기 버튼 -->
+                <button id="sidebar-collapse-btn" class="sidebar-toggle-btn" title="접기">
+                    <i class="fa-solid fa-angle-left"></i>
+                </button>
+                <!-- 모바일 닫기 버튼 -->
+                <button id="mobile-close-btn" class="mobile-close-btn" title="닫기">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div id="video-list" class="video-list">
+                <!-- 자바스크립트로 리스트 생성 -->
+            </div>
+            
+            <div class="sidebar-footer">
+                Created for Valorant Highlights
+            </div>
+        </aside>
+
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 펼치기 버튼 (사이드바가 접히면 보임) -->
+            <button id="sidebar-expand-btn" class="expand-btn" title="목록 보기">
+                <i class="fa-solid fa-angle-right"></i>
+            </button>
+
+            <div class="content-wrapper">
+                <!-- 영상 플레이어 -->
+                <div class="video-frame">
+                    <iframe id="main-player" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+
+                <!-- 영상 정보 -->
+                <div class="video-details">
+                    <h2 id="current-title" class="main-title"></h2>
+                    <div id="current-tags" class="main-tags">
+                        <!-- 태그 생성 -->
+                    </div>
+                    <p id="current-desc" class="main-desc"></p>
+                </div>
+            </div>
+        </main>
+
+        <!-- 모바일 오버레이 -->
+        <div id="mobile-overlay" class="mobile-overlay"></div>
+    </div>
+
+    <script>
+        // --- 1. 데이터 설정 (여기에 영상 추가) ---
+        const videos = [
+            {
+                id: 'ttfK7rWZFWI', 
+                title: '119 REMIX',
+                desc: '레전드 클립들만 모아놨다. 우현승의 모든 것',
+                tags: ['에임', '에이스', '스프레이', '중복 클립 다수']
+            },
+            {
+                id: 'aninPZLgZOE', 
+                title: 'When I Get Old',
+                desc: '우현승의 최고 고점',
+                tags: ['에임', '오멘 묘수', '중복 클립 다수']
+            },
+            {
+                id: '46f4wGHSb04', 
+                title: 'CHESS',
+                desc: '은근 맛도리 클립들 모음',
+                tags: ['에임', '오멘 묘수', '중복 클립 다수']
+            },
+            {
+                id: '-7D6dfA5HHw',
+                title: '프리터 댄스',
+                desc: '난 멈추지 않아',
+                tags: ['편집', '오멘', '오락실']
+            },
+            {
+                id: 'y4e1Z0jmrPg', 
+                title: 'Be Happy',
+                desc: '고장난 시계도 하루에 두 번은 맞는다',
+                tags: ['에임']
+            },
+            {
+                id: 'i6UVUufvLKI', 
+                title: 'LAST SHOT',
+                desc: '시간 가속도 편집 연습용... 유튜브로 보니 비트레이트가 아쉽다',
+                tags: ['편집']
+            },
+            {
+                id: 'U2B7FLHlxME', 
+                title: 'VEM NO PIQUE',
+                desc: '어떻게 킬을 했는지 이해가 안되는 클립들 모음',
+                tags: ['납치']
+            },
+            {
+                id: '2ltAio8o2Ts', 
+                title: 'OHAYO MY NIGHT',
+                desc: '에라 모르겠다',
+                tags: ['오멘']
+            },
+            {
+                id: 'Yaihlbjsycw', 
+                title: 'Progaymer Montgaye',
+                desc: '큰 힘 가득한 게이♥ 유혹하는 게이♥',
+                tags: ['오멘', '편집']
+            },
+            {
+                id: 'l8a71FGBX-Y', 
+                title: '내 이름 맑음',
+                desc: '오멘 말고도 다 잘 하던 시절',
+                tags: ['에임', '오멘 적음']
+            },
+        ];
+
+        // --- 2. 요소 선택 ---
+        const videoListEl = document.getElementById('video-list');
+        const mainPlayer = document.getElementById('main-player');
+        const currentTitle = document.getElementById('current-title');
+        const currentDesc = document.getElementById('current-desc');
+        const currentTags = document.getElementById('current-tags');
+        
+        const sidebar = document.getElementById('sidebar');
+        const collapseBtn = document.getElementById('sidebar-collapse-btn');
+        const expandBtn = document.getElementById('sidebar-expand-btn');
+        
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileCloseBtn = document.getElementById('mobile-close-btn');
+        const mobileOverlay = document.getElementById('mobile-overlay');
+
+        let currentIndex = 0;
+
+        // --- 3. 썸네일 생성 함수 ---
+        function getThumbnail(id) {
+            return `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
+        }
+
+        // --- 4. 리스트 렌더링 ---
+        function renderList() {
+            videoListEl.innerHTML = '';
+            videos.forEach((video, index) => {
+                const isActive = index === currentIndex;
+                
+                const item = document.createElement('div');
+                // classList 조작으로 클래스 추가
+                item.className = 'video-card';
+                if (isActive) item.classList.add('active');
+                
+                item.onclick = () => loadVideo(index);
+
+                // 태그 HTML (최대 2개)
+                const tagsHtml = video.tags.slice(0, 2).map(tag => 
+                    `<span class="mini-tag">${tag}</span>`
+                ).join('');
+                
+                const extraTagCount = video.tags.length > 2 ? `<span style="font-size:10px; color:#6b7280;">+${video.tags.length - 2}</span>` : '';
+
+                item.innerHTML = `
+                    <div class="thumb-box">
+                        <img src="${getThumbnail(video.id)}" alt="thumbnail">
+                    </div>
+                    <div class="info-box">
+                        <div class="video-title-text">${video.title}</div>
+                        <div class="tag-row">
+                            ${tagsHtml}
+                            ${extraTagCount}
+                        </div>
+                    </div>
+                `;
+                videoListEl.appendChild(item);
+            });
+        }
+
+        // --- 5. 비디오 로드 ---
+        function loadVideo(index) {
+            currentIndex = index;
+            const video = videos[index];
+
+            mainPlayer.src = `https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0`;
+            currentTitle.textContent = video.title;
+            currentDesc.textContent = video.desc || "설명이 없습니다.";
+
+            currentTags.innerHTML = video.tags.map(tag => 
+                `<span class="main-tag-badge">#${tag}</span>`
+            ).join('');
+
+            renderList();
+
+            // 모바일이면 로드 후 사이드바 닫기
+            if (window.innerWidth < 768) {
+                closeMobileSidebar();
+            }
+        }
+
+        // --- 6. 사이드바 제어 로직 ---
+
+        // 데스크탑 접기/펼치기
+        function toggleSidebarDesktop() {
+            sidebar.classList.toggle('collapsed');
+            
+            // 사이드바가 접히면(.collapsed 존재) -> 펼치기 버튼 보이기(.visible 추가)
+            if (sidebar.classList.contains('collapsed')) {
+                expandBtn.classList.add('visible');
+            } else {
+                expandBtn.classList.remove('visible');
+            }
+        }
+
+        // 모바일 열기
+        function openMobileSidebar() {
+            sidebar.classList.add('mobile-open');
+            mobileOverlay.classList.add('active');
+        }
+
+        // 모바일 닫기
+        function closeMobileSidebar() {
+            sidebar.classList.remove('mobile-open');
+            mobileOverlay.classList.remove('active');
+        }
+
+        // --- 7. 이벤트 리스너 등록 ---
+        collapseBtn.addEventListener('click', toggleSidebarDesktop); // 접기 버튼
+        expandBtn.addEventListener('click', toggleSidebarDesktop);   // 펼치기 버튼 (생성된 작은 버튼)
+
+        mobileMenuBtn.addEventListener('click', openMobileSidebar);
+        mobileCloseBtn.addEventListener('click', closeMobileSidebar);
+        mobileOverlay.addEventListener('click', closeMobileSidebar);
+
+        // --- 8. 초기 실행 ---
+        renderList();
+        if (videos.length > 0) {
+            // 첫 영상은 자동재생 끄고 로드
+            mainPlayer.src = `https://www.youtube.com/embed/${videos[0].id}?rel=0`;
+            currentTitle.textContent = videos[0].title;
+            currentDesc.textContent = videos[0].desc;
+            currentTags.innerHTML = videos[0].tags.map(tag => 
+                `<span class="main-tag-badge">#${tag}</span>`
+            ).join('');
+        }
+
+    </script>
+</body>
+</html>

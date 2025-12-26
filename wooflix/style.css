@@ -1,0 +1,373 @@
+/* --- 1. CSS 변수 및 리셋 --- */
+:root {
+    --bg-dark: #111;      /* 발로란트 배경색 */
+    --bg-sidebar: #222;   /* 사이드바 배경색 */
+    --color-red: #ff4655;    /* 발로란트 레드 */
+    --color-red-dark: #d63845;
+    --text-main: #ece8e1;    /* 오프 화이트 */
+    --text-muted: #9ca3af;
+    --border-color: #333;
+    --header-height: 64px;
+    --sidebar-width: 320px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Kanit', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* --- 2. 유틸리티 & 스크롤바 --- */
+/* 커스텀 스크롤바 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-sidebar); 
+}
+::-webkit-scrollbar-thumb {
+    background: var(--color-red); 
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-red-dark); 
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    font-family: inherit;
+}
+
+/* --- 3. 헤더 영역 --- */
+.site-header {
+    height: var(--header-height);
+    background-color: #111;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    flex-shrink: 0; /* 높이 고정 */
+    z-index: 20;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-family: "BBH Bartle";
+    font-style: normal;
+}
+
+.highlight-red { color: var(--color-red); }
+
+.archive-badge {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.mobile-menu-btn {
+    display: none; /* 데스크탑 기본 숨김 */
+    font-size: 20px;
+}
+.mobile-menu-btn:hover { color: var(--color-red); }
+
+/* --- 4. 메인 레이아웃 (사이드바 + 콘텐츠) --- */
+.app-container {
+    display: flex;
+    flex: 1; /* 남은 높이 모두 차지 */
+    overflow: hidden; /* 내부 스크롤을 위해 */
+    position: relative;
+}
+
+/* --- 5. 사이드바 --- */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    /* width 대신 margin-left를 애니메이션하여 내용물 찌그러짐 방지 */
+    transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10;
+}
+
+/* 사이드바 접힘 상태 (데스크탑) */
+.sidebar.collapsed {
+    /* 너비를 0으로 줄이는 대신, 왼쪽 여백을 마이너스로 주어 화면 밖으로 밀어냄 */
+    margin-left: calc(var(--sidebar-width) * -1);
+}
+
+.sidebar-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    white-space: nowrap; /* 접힐 때 텍스트 줄바꿈 방지 */
+}
+
+.playlist-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+}
+
+.sidebar-toggle-btn:hover { color: #fff; }
+
+.video-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+}
+
+.sidebar-footer {
+    padding: 16px;
+    font-size: 12px;
+    text-align: center;
+    color: #6b7280;
+    border-top: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+/* --- 6. 비디오 카드 아이템 --- */
+.video-card {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
+    border-left: 4px solid transparent;
+    transition: background-color 0.2s, border-color 0.2s;
+    margin-bottom: 4px;
+}
+
+.video-card:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-left-color: #4b5563;
+}
+
+.video-card.active {
+    background-color: rgba(255, 70, 85, 0.15);
+    border-left-color: var(--color-red);
+}
+
+.thumb-box {
+    width: 96px;
+    height: 56px;
+    flex-shrink: 0;
+    background-color: #000;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.thumb-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.video-card:hover .thumb-box img { transform: scale(1.1); }
+
+.info-box {
+    flex: 1;
+    min-width: 0; /* 텍스트 말줄임 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.video-title-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+}
+
+.video-card:hover .video-title-text { color: var(--color-red); }
+
+.tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.mini-tag {
+    font-size: 10px;
+    padding: 2px 6px;
+    background-color: #32425b;
+    color: #d1d5db;
+    border-radius: 4px;
+}
+
+/* --- 7. 메인 콘텐츠 영역 --- */
+.main-content {
+    flex: 1;
+    background-color: var(--bg-dark);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    padding: 16px;
+    transition: all 0.3s;
+}
+
+/* 펼치기 버튼 */
+.expand-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 20;
+    background-color: var(--bg-sidebar);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    transition: background-color 0.2s, opacity 0.3s;
+    opacity: 0;
+    pointer-events: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+}
+
+.expand-btn.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.expand-btn:hover { background-color: var(--color-red); }
+
+.content-wrapper {
+    width: 100%;
+    max-width: 1024px; /* max-w-5xl */
+    margin-top: 16px;
+    transition: margin 0.3s ease;
+}
+
+/* 비디오 컨테이너 (반응형 16:9) */
+.video-frame {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 비율 유지 (유지 필요) */
+    background: #000;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.video-frame iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.video-details {
+    margin-top: 24px;
+}
+
+.main-title {
+    font-size: 24px;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 8px;
+    line-height: 1.3;
+    font-family: "BBH Bartle";
+    font-style: normal;
+}
+
+.main-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.main-tag-badge {
+    padding: 4px 12px;
+    background-color: var(--color-red);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 2px;
+    letter-spacing: 0.6px;
+}
+
+.main-desc {
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+/* --- 8. 반응형 (모바일) --- */
+.mobile-close-btn { display: none; }
+.mobile-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 5;
+}
+
+@media (min-width: 768px) {
+    .main-content { padding: 40px; }
+    .main-title { font-size: 30px; }
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-btn { display: block; }
+    
+    .sidebar {
+        position: absolute;
+        top: 0; bottom: 0; left: 0;
+        transform: translateX(-100%);
+        border-right: 1px solid #333;
+        width: 80%; /* 모바일에서는 화면의 80% 차지 */
+        max-width: 300px;
+        /* 모바일에서는 데스크탑용 margin 이동 효과 무시 */
+        margin-left: 0 !important;
+    }
+
+    .sidebar.mobile-open {
+        transform: translateX(0);
+    }
+
+    /* 모바일에서 데스크탑용 접기 버튼 숨김 */
+    .sidebar-toggle-btn { display: none; }
+    /* 모바일 닫기 버튼 표시 */
+    .mobile-close-btn { display: block; font-size: 20px; }
+
+    .mobile-overlay.active { display: block; }
+    .expand-btn { display: none !important; }
+}
